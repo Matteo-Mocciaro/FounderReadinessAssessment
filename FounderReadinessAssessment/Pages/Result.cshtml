@@ -1,0 +1,99 @@
+@page
+@model FounderReadinessAssessment.Pages.ResultModel
+@{
+    ViewData["Title"] = Model.T("Assessment Report", "Report di valutazione");
+    var result = Model.Result!;
+}
+
+<section class="section-header">
+    <p class="eyebrow">@Model.T("Startup Fit Check Report", "Report Startup Fit Check")</p>
+    <h1>@Model.T("Founder Readiness Report", "Report finale di valutazione")</h1>
+    <p class="lead">@result.ExecutiveSummary</p>
+</section>
+
+<section class="grid grid-2">
+    <article class="card overall-card">
+        <h2>@Model.T("Overall Maturity Score", "Punteggio complessivo di maturità")</h2>
+        <div class="overall-score">@result.Scores.Overall<span>/100</span></div>
+        <div class="profile-badge">@Model.T("Profile", "Profilo"): @Model.GetProfileLabel()</div>
+        <p class="muted">@Model.GetProfileDescription()</p>
+    </article>
+
+    <article class="card recommendation-card">
+        <h2>@Model.T("Sales Recommendation", "Raccomandazione commerciale")</h2>
+        <p>@result.SalesRecommendation</p>
+    </article>
+</section>
+
+<section class="card">
+    <h2>@Model.T("Dimension Scores", "Punteggi per dimensione")</h2>
+    <div class="score-row">
+        <div class="score-label">@Model.T("Problem Clarity", "Chiarezza del problema")</div>
+        <div class="score-bar"><span style="width:@result.Scores.ProblemClarity%"></span></div>
+        <div class="score-value">@result.Scores.ProblemClarity</div>
+    </div>
+    <div class="score-row">
+        <div class="score-label">@Model.T("Validation Evidence", "Evidenze di validazione")</div>
+        <div class="score-bar"><span style="width:@result.Scores.ValidationEvidence%"></span></div>
+        <div class="score-value">@result.Scores.ValidationEvidence</div>
+    </div>
+    <div class="score-row">
+        <div class="score-label">@Model.T("Execution Readiness", "Capacità di esecuzione")</div>
+        <div class="score-bar"><span style="width:@result.Scores.ExecutionReadiness%"></span></div>
+        <div class="score-value">@result.Scores.ExecutionReadiness</div>
+    </div>
+    <div class="score-row">
+        <div class="score-label">@Model.T("Commercial Readiness", "Maturità commerciale")</div>
+        <div class="score-bar"><span style="width:@result.Scores.CommercialReadiness%"></span></div>
+        <div class="score-value">@result.Scores.CommercialReadiness</div>
+    </div>
+</section>
+
+<section class="card">
+    <h2>@Model.T("Triggered Flags", "Flag attivate")</h2>
+    @if (result.Flags.Count == 0)
+    {
+        <p class="muted">@Model.T("No strategic flags were triggered for this submission.", "Nessuna flag strategica è stata attivata per questa compilazione.")</p>
+    }
+    else
+    {
+        <div class="flag-row">
+            @foreach (var flag in result.Flags)
+            {
+                <span class="flag-badge flag-@flag.Severity">@Model.GetFlagLabel(flag.Name)</span>
+            }
+        </div>
+    }
+</section>
+
+<section class="grid grid-2">
+    <article class="card">
+        <h2>@Model.T("Strengths", "Punti di forza")</h2>
+        <ul>
+            @foreach (var strength in result.Strengths)
+            {
+                <li>@strength</li>
+            }
+        </ul>
+    </article>
+    <article class="card">
+        <h2>@Model.T("Gaps and Risks", "Gap e rischi")</h2>
+        <ul>
+            @foreach (var gap in result.GapsRisks)
+            {
+                <li>@gap</li>
+            }
+        </ul>
+    </article>
+</section>
+
+<section class="card">
+    <h2>@Model.T("Next Best Action", "Azione consigliata")</h2>
+    <p>@result.NextBestAction</p>
+</section>
+
+<footer class="prototype-note">
+    @Model.T(
+        "Prototype note: This report is a decision-support prototype and should be used together with a live qualification conversation.",
+        "Nota prototipo: questo report è uno strumento di supporto decisionale e va usato insieme a un colloquio di approfondimento.")
+</footer>

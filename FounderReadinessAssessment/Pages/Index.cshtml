@@ -1,0 +1,62 @@
+@page
+@model FounderReadinessAssessment.Pages.IndexModel
+@{
+    ViewData["Title"] = Model.T("Startup Fit Check", "Startup Fit Check");
+}
+
+<section class="hero card">
+    <p class="eyebrow">@Model.T("Founder Readiness Prototype", "Prototipo di valutazione founder")</p>
+    <h1>@Model.T("Startup Fit Check", "Startup Fit Check")</h1>
+    <p class="lead">
+        @Model.T(
+            "A structured lead qualification assessment to evaluate startup maturity and recommend the next best support path for founders and internal teams.",
+            "Una valutazione strutturata di qualificazione del lead per misurare la maturità della startup e raccomandare il percorso di supporto più adatto per founder e team interni.")
+    </p>
+    <a class="btn btn-primary" asp-page="/Assessment">@Model.T("Start Assessment", "Avvia l'assessment")</a>
+</section>
+
+<section class="section">
+    <h2>@Model.T("How It Works", "Come Funziona")</h2>
+    <div class="grid grid-3">
+        <article class="card step-card">
+            <h3>@Model.T("1. Complete the assessment", "1. Compila l'assessment")</h3>
+            <p>@Model.T("Answer 12 required questions across problem clarity, validation evidence, execution readiness, and commercial readiness.", "Rispondi a 12 domande obbligatorie su chiarezza del problema, evidenze di validazione, capacità di esecuzione e maturità commerciale.")</p>
+        </article>
+        <article class="card step-card">
+            <h3>@Model.T("2. Apply scoring and decision logic", "2. Applica scoring e logica decisionale")</h3>
+            <p>@Model.T("The engine computes weighted scores, assigns a profile, and activates lead qualification flags.", "Il motore applica il modello di punteggio, assegna un profilo e attiva le flag di qualificazione del lead.")</p>
+        </article>
+        <article class="card step-card">
+            <h3>@Model.T("3. Review the final report", "3. Analizza il report finale")</h3>
+            <p>@Model.T("Receive a consultative summary with strengths, risks, next best action, and sales recommendation.", "Ottieni una sintesi consulenziale con punti di forza, rischi, prossima azione consigliata e raccomandazione commerciale.")</p>
+        </article>
+    </div>
+</section>
+
+<section class="section">
+    <h2>@Model.T("What the assessment evaluates", "Cosa valuta l'assessment")</h2>
+    <div class="grid grid-2">
+        <article class="card dimension-card">
+            <h3>@Model.T("Problem Clarity", "Chiarezza del problema")</h3>
+            <p>@Model.T("Clarity of the problem statement, customer segment, and urgency level.", "Chiarezza del problema, del segmento cliente e del livello di urgenza.")</p>
+        </article>
+        <article class="card dimension-card">
+            <h3>@Model.T("Validation Evidence", "Evidenze di validazione")</h3>
+            <p>@Model.T("Quality and quantity of market validation and demand signals.", "Qualità e quantità della validazione di mercato e dei segnali di domanda.")</p>
+        </article>
+        <article class="card dimension-card">
+            <h3>@Model.T("Execution Readiness", "Capacità di esecuzione")</h3>
+            <p>@Model.T("Team capability, execution commitment, and delivery progress.", "Capacità del team, commitment esecutivo e stato di avanzamento della delivery.")</p>
+        </article>
+        <article class="card dimension-card">
+            <h3>@Model.T("Commercial Readiness", "Maturità commerciale")</h3>
+            <p>@Model.T("Strength of value proposition, 90-day objective clarity, and support path alignment.", "Solidità della value proposition, chiarezza degli obiettivi a 90 giorni e allineamento del percorso di supporto.")</p>
+        </article>
+    </div>
+</section>
+
+<section class="section card cta-panel">
+    <h2>@Model.T("Ready to qualify this startup opportunity?", "Pronto a qualificare questa opportunità startup?")</h2>
+    <p>@Model.T("Run Startup Fit Check and generate a clear, decision-ready readiness report in minutes.", "Esegui Startup Fit Check e genera in pochi minuti un report di readiness chiaro e orientato alla decisione.")</p>
+    <a class="btn btn-primary" asp-page="/Assessment">@Model.T("Run Startup Fit Check", "Esegui Startup Fit Check")</a>
+</section>

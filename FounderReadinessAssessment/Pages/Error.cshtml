@@ -1,0 +1,19 @@
+@page
+@model FounderReadinessAssessment.Pages.ErrorModel
+@{
+    ViewData["Title"] = Model.T("Unexpected error", "Errore inatteso");
+}
+
+<section class="section-header">
+    <p class="eyebrow">@Model.T("System notice", "Avviso di sistema")</p>
+    <h1>@Model.T("Something went wrong", "Si è verificato un problema")</h1>
+    <p class="lead">
+        @Model.T(
+            "An unexpected error occurred while processing your request. Please try again or return to the homepage.",
+            "Si è verificato un errore inatteso durante l'elaborazione della richiesta. Riprova oppure torna alla home.")
+    </p>
+</section>
+
+<section class="card">
+    <a class="btn btn-primary" asp-page="/Index">@Model.T("Back to Home", "Torna alla home")</a>
+</section>

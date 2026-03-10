@@ -1,0 +1,11 @@
+## Build output
+bin/
+obj/
+
+## Visual Studio workspace files
+.vs/
+*.user
+*.suo
+
+## Test artifacts
+TestResults/

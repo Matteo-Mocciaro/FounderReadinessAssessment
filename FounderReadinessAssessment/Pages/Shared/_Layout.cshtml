@@ -1,0 +1,45 @@
+@inject FounderReadinessAssessment.Services.LocalizationService Localization
+@{
+    Context.Request.Cookies.TryGetValue(FounderReadinessAssessment.Services.LocalizationService.LanguageCookieName, out var cookieLanguage);
+    var currentLanguage = Localization.NormalizeLanguage(cookieLanguage);
+    var homeLabel = Localization.Translate(currentLanguage, "Home", "Home");
+    var assessmentLabel = Localization.Translate(currentLanguage, "Assessment", "Valutazione");
+    var languageLabel = Localization.Translate(currentLanguage, "Language", "Lingua");
+}
+<!DOCTYPE html>
+<html lang="@currentLanguage">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Startup Fit Check</title>
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+</head>
+<body>
+    <header class="site-header">
+        <div class="container site-header-inner">
+            <a class="brand" asp-page="/Index">Startup Fit Check</a>
+            <nav aria-label="Main">
+                <a asp-page="/Index">@homeLabel</a>
+                <a asp-page="/Assessment">@assessmentLabel</a>
+                <span class="lang-switch" aria-label="@languageLabel">
+                    <a href="@($"{Context.Request.Path}?lang=en")" class="@(currentLanguage == "en" ? "active-lang" : string.Empty)">EN</a>
+                    <span>/</span>
+                    <a href="@($"{Context.Request.Path}?lang=it")" class="@(currentLanguage == "it" ? "active-lang" : string.Empty)">IT</a>
+                </span>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container app-shell">
+        @RenderBody()
+    </main>
+
+    <footer class="site-footer">
+        <div class="container">
+            @Localization.Translate(currentLanguage, "Startup Fit Check Prototype | FounderReadinessAssessment", "Startup Fit Check Prototipo | FounderReadinessAssessment")
+        </div>
+    </footer>
+
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

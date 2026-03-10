@@ -1,0 +1,72 @@
+@page
+@model FounderReadinessAssessment.Pages.AssessmentModel
+@{
+    ViewData["Title"] = Model.T("Assessment", "Valutazione");
+}
+
+<section class="section-header">
+    <p class="eyebrow">Startup Fit Check</p>
+    <h1>@Model.T("Founder Readiness Assessment", "Valutazione della prontezza del founder")</h1>
+    <p class="lead">@Model.T("Complete all questions to generate a structured report on startup maturity and lead qualification.", "Completa tutte le domande per generare un report strutturato su maturità della startup e qualificazione del lead.")</p>
+</section>
+
+<section class="card progress-card">
+    <div class="progress-head">
+        <strong>@Model.T("Progress", "Avanzamento")</strong>
+        <span>@Model.T($"Question {Model.AnsweredCount} of 12 completed", $"Domande completate: {Model.AnsweredCount} su 12")</span>
+    </div>
+    <div class="progress-track" aria-hidden="true">
+        <div class="progress-fill" style="width:@((Model.AnsweredCount / 12.0 * 100).ToString("0"))%"></div>
+    </div>
+</section>
+
+<form method="post" class="assessment-form">
+    <div asp-validation-summary="ModelOnly" class="validation-summary"></div>
+
+    @{
+        var answerIndex = 0;
+    }
+    @for (var s = 0; s < Model.Sections.Count; s++)
+    {
+        var sectionVm = Model.Sections[s];
+        <section class="section">
+            <header class="section-title">
+                <h2>@sectionVm.Dimension.Name</h2>
+                <span class="weight-pill">@Model.T("Weight", "Peso"): @((sectionVm.Dimension.Weight * 100).ToString("0"))%</span>
+            </header>
+
+            @for (var q = 0; q < sectionVm.Questions.Count; q++)
+            {
+                var question = sectionVm.Questions[q];
+                <article class="card question-card">
+                    <input type="hidden" asp-for="Submission.Answers[answerIndex].QuestionId" value="@question.Id" />
+                    <h3>@Model.T($"Question {question.Number} of 12", $"Domanda {question.Number} di 12"): @question.Text</h3>
+                    <fieldset>
+                        <legend class="sr-only">@Model.T($"Question {question.Number} answer options", $"Opzioni risposta domanda {question.Number}")</legend>
+                        @for (var optionIndex = 0; optionIndex < question.Options.Count; optionIndex++)
+                        {
+                            var option = question.Options[optionIndex];
+                            var optionInputId = $"{question.Id}_{option.Id}";
+                            <label class="option-row" for="@optionInputId">
+                                <input
+                                    id="@optionInputId"
+                                    type="radio"
+                                    asp-for="Submission.Answers[answerIndex].SelectedOptionId"
+                                    value="@option.Id" />
+                                <span>@option.Text</span>
+                            </label>
+                        }
+                    </fieldset>
+                    <span asp-validation-for="Submission.Answers[answerIndex].SelectedOptionId" class="field-validation"></span>
+                </article>
+
+                answerIndex++;
+            }
+        </section>
+    }
+
+    <div class="submit-panel card">
+        <p>@Model.T("All 12 answers are required to generate a complete and reliable assessment report.", "Tutte le 12 risposte sono necessarie per generare un report completo e affidabile.")</p>
+        <button type="submit" class="btn btn-primary">@Model.T("Generate assessment report", "Genera report finale")</button>
+    </div>
+</form>
